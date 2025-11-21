@@ -1,0 +1,11 @@
+[Unit]
+Description=nginx porxy_pass exporter
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /path/to/file/proxy_pass_exporter.sh
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
