@@ -36,15 +36,15 @@ do
 					fi
 					opp=$val
 		
-				    if [[ "${t}{host=\"$host\", upstream_server=\"$server\", server_name=\"$server_name\", proxy_pass=\"$proxy_pass\"} $a" != $z ]]; then
+				    if [[ "${metric_name}{host=\"$host\", upstream_server=\"$server\", server_name=\"$server_name\", proxy_pass=\"$proxy_pass\"} $a" != $z ]]; then
 						serverO=`echo "$server"`
 						server_nameO=`echo "$server_name"` 
 						proxy_passO=`echo "$proxy_pass" | sed -E 's|^https?://||; s|/||'` 
 						protocol=`echo "$proxy_pass" | sed -E 's|^(https?)://.*|\1|'`
 			
-						echo "${t}{host=\"$host\", upstream_server=\"$serverO\", server_name=\"$server_nameO\", proxy_pass=\"$proxy_passO\", protocol=\"$protocol\", conf_file=\"$c\"} $a"
+						echo "${metric_name}{host=\"$host\", upstream_server=\"$serverO\", server_name=\"$server_nameO\", proxy_pass=\"$proxy_passO\", protocol=\"$protocol\", conf_file=\"$c\"} $a"
 						echo "Sending metrics to PushGateway"
-						echo "$t $a" | curl -sX PUT --data-binary @- "http://$pushgateway_server_name:$pushgateway_server_port/metrics/job/$job_name/instance/$host/upstream_server/$serverO/server_name/$server_nameO/proxy_pass/$proxy_passO/protocol/$protocol/conf_file/$c"
+						echo "$metric_name $a" | curl -sX PUT --data-binary @- "http://$pushgateway_server_name:$pushgateway_server_port/metrics/job/$job_name/instance/$host/upstream_server/$serverO/server_name/$server_nameO/proxy_pass/$proxy_passO/protocol/$protocol/conf_file/$c"
 						if [[ $? != "" ]]; then 
 						    echo "Done pushing metrics"
 						else
