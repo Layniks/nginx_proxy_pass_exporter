@@ -42,3 +42,23 @@ sleep_time=14400
 - **host** - hostname of a server where exporter is running, it will be used in label *"instance"*, default $(hostname)
 - **job_name** - value for "job" label, default "nginx_exporter"
 - **sleep_time** - how long (in seconds) to wait before next run, set 0 if you want to run script once, default 14400 (run every 4 hours)
+
+## Run the script
+- Do `chmod +x ./proxy_pass_exporter.sh`
+- Do `./proxy_pass_exporter.sh` or `/bin/bash proxy_pass_exporter.sh`
+
+## systemd
+Create systemd service to autorun exporter:
+```bash
+[Unit]
+Description=nginx porxy_pass exporter
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /path/to/file/proxy_pass_exporter.sh
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
