@@ -61,5 +61,8 @@ do
     done
 
     IFS=$OIFS
+	(( $sleep_time == 0 )) && {
+	    exit 0
+	}
     sleep $sleep_time
 done
