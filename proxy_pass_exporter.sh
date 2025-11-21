@@ -10,7 +10,6 @@ do
 	
     for c in $confs; do
 		list=$(grep -oP "^[^#]+ \K(server [^;]+|server_name [^;]+|proxy_pass [^;]+)" $path_to_sites$c)
-		t="nginx_upstream_enabled"
 		a=0
 		opp=""
 		z=""
@@ -52,7 +51,7 @@ do
 					    	echo "Error pushing metrics"
 						fi
 				    fi
-				    z="${t}{host=\"$host\", upstream_server=\"$server\", server_name=\"$server_name\", proxy_pass=\"$proxy_pass\"} $a"
+				    z="${metric_name}{host=\"$host\", upstream_server=\"$server\", server_name=\"$server_name\", proxy_pass=\"$proxy_pass\"} $a"
 				fi
 		    done
 		else
