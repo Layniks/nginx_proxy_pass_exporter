@@ -1,6 +1,7 @@
 path_to_sites="/etc/nginx/sites-enabled/"
 pushgateway_server_name="your_ip_here"
 pushgateway_server_port="9091"
+metric_name="nginx_upstream_enabled"
 host=$(hostname)
 job_name="nginx_exporter"
 sleep_time=14400
