@@ -7,7 +7,7 @@ while true
 do
     confs=$(ls $path_to_sites)
     IFS=$'\n'
-
+	
     for c in $confs; do
 		list=$(grep -oP "^[^#]+ \K(server [^;]+|server_name [^;]+|proxy_pass [^;]+)" $path_to_sites$c)
 		t="nginx_upstream_enabled"
@@ -55,6 +55,9 @@ do
 				    z="${t}{host=\"$host\", upstream_server=\"$server\", server_name=\"$server_name\", proxy_pass=\"$proxy_pass\"} $a"
 				fi
 		    done
+		else
+			echo "No data to work with"
+			exit 1
 		fi
     done
 
